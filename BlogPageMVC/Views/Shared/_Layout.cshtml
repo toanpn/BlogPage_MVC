@@ -1,42 +1,85 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Navbar Menu Template</title>
+
+    <link href="~/Content/Navbar/animate.css" rel="stylesheet" />
+    <link href="~/Content/Navbar/fontfamily.css" rel="stylesheet" />
+    <link href="~/Content/Navbar/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Navbar/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400|Roboto:300,400,500">
+    <link href="~/Content/Navbar/style.css" rel="stylesheet" />
+    <img src="~/Content/Navbar/favicon.png" />
+    <link href="~/Content/Navbar/style.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/Navbar/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/Navbar/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/Navbar/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/Navbar/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/Navbar/apple-touch-icon-57-precomposed.png">
+
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <!-- Top menu -->
+    <nav class="navbar navbar-fixed-top navbar-no-bg" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="index.html">Bootstrap Navbar Menu Template</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="top-navbar-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a class="btn btn-link-3" href="#">Button</a></li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </nav>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!-- Top content -->
+    <div class="top-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text wow fadeInLeft">
+                 @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 footer-copyright">
+                    &copy; Bootstrap Navbar Template by <a href="http://azmind.com">AZMIND</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Javascript -->
+    <script src="~/Content/Navbar/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/Navbar/bootstrap.min.js"></script>
+    <script src="~/Content/Navbar/jquery.backstretch.min.js"></script>
+    <script src="~/Content/Navbar/wow.min.js"></script>
+    <script src="~/Content/Navbar/waypoints.min.js"></script>
+    <script src="~/Content/Navbar/scripts.js"></script>
+    <script src="~/Content/Navbar/retina-1.1.0.min.js"></script>
+
 </body>
+
 </html>
