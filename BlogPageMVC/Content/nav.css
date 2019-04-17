@@ -1,0 +1,42 @@
+﻿body {
+    height: 3000px;
+    background: red;
+}
+
+.navbar-fixed-top {
+    background-color: black;
+    transition: background-color 2s ease 0s;
+}
+
+    .navbar-fixed-top.opaque {
+        background-color: rgba(255, 255, 255, 0.5);
+        transition: background-color 2s ease 0s;
+        position: fixed;
+    }
+
+.navbar {
+    position: relative;
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    display: block;
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.navbar-right {
+    position: relative;
+    bottom: 35px;
+    display: block;
+}

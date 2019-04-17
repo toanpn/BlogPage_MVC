@@ -13,43 +13,96 @@
     <link href="~/Content/Navbar/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Navbar/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400|Roboto:300,400,500">
-    <link href="~/Content/Navbar/style.css" rel="stylesheet" />
-    <img src="~/Content/Navbar/favicon.png" />
-    <link href="~/Content/Navbar/style.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="~/Content/Navbar/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/Navbar/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/Navbar/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/Navbar/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="~/Content/Navbar/apple-touch-icon-57-precomposed.png">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/bootsnav.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body style="background-color: #f9f9f9;">
 
-    <!-- Top menu -->
-    <nav class="navbar navbar-fixed-top navbar-no-bg" role="navigation">
-        <div class="container">
-            <div class="navbar-header" style="padding-top: 10px;">
-                @*<a class="navbar-brand" href="index.html">My Blog</a>*@
-                <b style="font-family: 'Roboto', sans-serif;font-size: 30px;font-weight: 450;color: #66939a;line-height: 30px;text-align: center;">MyBlog</b>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="top-navbar-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a class="btn btn-link-3" href="#">Button</a></li>
-                </ul>
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+        <!-- Start Top Search -->
+        <div class="top-search">
+            <div class="container">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                </div>
             </div>
         </div>
+        <!-- End Top Search -->
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                </ul>
+            </div>
+          
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("About", "Home")">About Me</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdowns</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Custom Menu</a></li>
+                            <li><a href="#">Custom Menu</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Custom Menu</a></li>
+                                    <li><a href="#">Custom Menu</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Custom Menu</a></li>
+                                </ul>
+                            </li>
+                            <li><a>Custom Menu</a></li>
+                            <li><a>>Custom Menu</a></li>
+                            <li><a>>Custom Menu</a></li>
+                            <li><a>>Custom Menu</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")">>Contact Us</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+       
     </nav>
-
+    <!-- End Navigation -->
     <!-- Top content -->
     <div class="top-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="wrapper">
+                <img src="~/Content/camera-close-up-equipment-2121536.jpg" class="img-responsive img-fluid" alt="Responsive image" style="width:100%;" />
+                    <div class="search-wrapper">
+                        <input type="search" placeholder="Search.." />
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="container">
             <div class="row">
-                <div >
-                 @RenderBody()
+                <div>
+                    @RenderBody()
                 </div>
             </div>
         </div>
@@ -74,7 +127,8 @@
     <script src="~/Content/Navbar/waypoints.min.js"></script>
     <script src="~/Content/Navbar/scripts.js"></script>
     <script src="~/Content/Navbar/retina-1.1.0.min.js"></script>
-
+    <script src="~/Content/bootsnav.js"></script>
+    <!-- Bootsnavs -->
 </body>
 
 </html>
