@@ -155,8 +155,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Navbar\1%402x.jpg" />
-    <Content Include="Content\Navbar\1.jpg" />
     <Content Include="Content\Navbar\animate.css" />
     <Content Include="Content\Navbar\apple-touch-icon-114-precomposed.png" />
     <Content Include="Content\Navbar\apple-touch-icon-144-precomposed.png" />
