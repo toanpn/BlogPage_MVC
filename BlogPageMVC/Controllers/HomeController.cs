@@ -1,16 +1,23 @@
-﻿using System;
+﻿using BlogPageMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace BlogPageMVC.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private dbBlogEntities db = new dbBlogEntities();
+
+
+        public ActionResult Index(int? page)
         {
-            return View();
+            int pageNumber = (page ?? 1);
+            var a = db.tbPosts.ToList().ToPagedList(pageNumber, 1);
+            return View(db.tbPosts.ToList().ToPagedList(pageNumber, 1));
         }
 
         public ActionResult About()

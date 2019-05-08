@@ -25,6 +25,15 @@ namespace BlogPageMVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // config
+
+            bundles.Add(new StyleBundle("~/Content/css/css").Include(
+                     "~/Content/css/*.min.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/js").Include(
+                     "~/Scripts/js/*.js"));
+            
         }
     }
 }

@@ -1,24 +1,163 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
-<h1>index</h1>
+@using PagedList.Mvc
+@model  PagedList.IPagedList<BlogPageMVC.Models.tbPost>
 
-<h1>index</h1>
-<h1>index</h1>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<!-- Introduction -->
+<div class="intro">
+    <div class="container">
+        <div class="units-row">
+            <div class="unit-10">
+                <img class="img-intro" src="~/Image/img/avatar.png" alt="">
+            </div>
+            <div class="unit-90">
+                <p class="p-intro">Hello, I’m Toan. Welcom to my blog.  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png">  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png">  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    input[type=text] {
+        width: 180px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
 
-<h1>index</h1>
+        /* When the input field gets focus, change its width to 100% */
+        input[type=text]:focus {
+            width: 100%;
+        }
+</style>
+@Html.Hidden("page", 0);
+<!-- Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        @foreach (var post in Model)
+                        {
+                            <div class="post">
+                                <!-- Heading -->
+                                <a href="#"><h1>@post.Tittle</h1></a>
+                                <hr>
+                                <div class="in-content">
+                                    <p>
+                                        @post.ShortContent
+                                    </p>
+                                </div>
+                                <div class="foot-post">
+                                    <div class="units-row">
+                                        <div class="unit-100">
+                                            <strong>Tags:</strong>
+                                            <a href="#">Galaxy</a>,
+                                            <a href="#">Human</a>,
+                                            <a href="#">World</a>,
+                                        </div>
+                                        <div class="unit-100">
+                                            <strong>COMMENTS:</strong>
+                                            <a href="#">@post.Comments</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="read-more" href="#">Read more</a>
+
+                            </div>
+                        }
+
+
+                        <!--
+                            <div class="post">
+                            <a href="#"><h1>The moon will pass above or below Saturn in the sky</h1></a>
+                            <hr>
+                            <div class="in-content">
+                                <img class="right" src="~/Image/img/post-img.jpg" alt="">
+                                <p>
+                                    Saturn has a prominent ring system that consists of nine continuous main rings and three discontinuous arcs, composed mostly afn of ice particles with a smaller amount of rocky debris and dust.
+                                </p>
+                            </div>
+                            <div class="foot-post">
+                                <div class="units-row">
+                                    <div class="unit-100">
+                                        <strong>Tags:</strong>
+                                        <a href="#">Saturn</a>,
+                                        <a href="#">Sky</a>,
+                                        <a href="#">Moon</a>,
+                                    </div>
+                                    <div class="unit-100">
+                                        <strong>COMMENTS:</strong>
+                                        <a href="#">3</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3">
+                <div class="row" style="padding-bottom:30px">
+                    <input style="border-radius:5px" type="text" name="search" placeholder="Search in this blog...">
+                </div>
+                <div class="row">
+                    @Html.Partial("TagCloud")
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<!-- /post -->
+@section button{
+    <div class="unit-50">
+        <button id="btnOlder" class="btn btn-black"><i class="fa fa-arrow-right"></i> OLDER</button>
+    </div>
+}
+
+<script>
+
+    $(function () {
+
+        var model = @Html.Raw(Json.Encode(Model));
+        console.log(model)
+        // init value for page
+        $('#page').val(1);
+
+        var page = $('#page');
+
+        // increase for page's value whenever Older button clicked
+        function increasePageValue() {
+            page.val(parseInt(page.val()) + 1);
+        }
+
+        // event click of Older button
+        $("#btnOlder").click(function () {
+
+            increasePageValue();
+
+            $.ajax({
+                // edit to add steve's suggestion.
+                //url: "/ControllerName/ActionName",
+                url: '/Home/Index',
+                data: {page: page.val()},
+                success: function (data) {
+                    // your data could be a View or Json or what ever you returned in your action method
+                    // parse your data here
+                }
+            });
+            //console.log(page.val());
+        })
+    })
+
+</script>

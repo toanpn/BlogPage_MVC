@@ -1,0 +1,80 @@
+﻿
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    #chartdiv {
+        width: 100%;
+        height: 400px;
+        border:1px solid #808080; 
+        border-radius: 15px
+    }
+   
+</style>
+
+<div  id="chartdiv"></div>
+
+<script>
+
+    am4core.useTheme(am4themes_animated);
+
+    am4core.useTheme(am4themes_animated);
+    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+
+    series.data = [{
+        "tag": "Breaking News",
+        "count": 60
+    }, {
+        "tag": "Environment",
+        "count": 80
+    }, {
+        "tag": "Politics",
+        "count": 90
+    }, {
+        "tag": "Business",
+        "count": 25
+    }, {
+        "tag": "Lifestyle",
+        "count": 30
+    }, {
+        "tag": "World",
+        "count": 45
+    }, {
+        "tag": "Sports",
+        "count": 160
+    }, {
+        "tag": "Fashion",
+        "count": 20
+    }, {
+        "tag": "Education",
+        "count": 78
+    }];
+
+    series.dataFields.word = "tag";
+    series.dataFields.value = "count";
+    series.heatRules.push({
+        "target": series.labels.template,
+        "property": "fill",
+        "min": am4core.color("#0000CC"),
+        "max": am4core.color("#FF7400"),
+        "dataField": "value"
+    });
+    series.labels.template.url = "https://google.com.vn";
+    series.labels.template.urlTarget = "_blank";
+    series.labels.template.tooltipText = "{word}: {value}";
+
+
+    var title = chart.titles.create();
+    title.text = "Most Popular Tags";
+    title.fontSize = 20;
+    title.fontWeight = "800";
+    title.fill = am4core.color("#ffa542");
+    series.colors = new am4core.ColorSet();
+    series.colors.passOptions = {};
+</script>

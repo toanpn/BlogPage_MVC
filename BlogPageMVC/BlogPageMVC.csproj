@@ -63,6 +63,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -129,7 +135,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\tbCategoriesController.cs" />
     <Compile Include="Controllers\tbPostsController.cs" />
     <Compile Include="Controllers\tbTagsController.cs" />
@@ -147,9 +152,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.css" />
-    <Content Include="Content\bootsnav.css" />
-    <Content Include="Content\bootsnav.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -157,13 +159,22 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\camera-close-up-equipment-2121536.jpg" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\custom.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\kube.css" />
+    <Content Include="Content\css\kube.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\nav.css" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Image\img\avatar.png" />
+    <Content Include="Image\img\favicon.png" />
+    <Content Include="Image\img\head-bg.jpg" />
+    <Content Include="Image\img\post-img.jpg" />
+    <Content Include="Image\img\separator.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -202,20 +213,38 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\accordion.js" />
+    <Content Include="Scripts\js\autocomplete.js" />
+    <Content Include="Scripts\js\buttons.js" />
+    <Content Include="Scripts\js\check-all.js" />
+    <Content Include="Scripts\js\dropdown.js" />
+    <Content Include="Scripts\js\filterbox.js" />
+    <Content Include="Scripts\js\infinite-scroll.js" />
+    <Content Include="Scripts\js\jquery.min.js" />
+    <Content Include="Scripts\js\kube.js" />
+    <Content Include="Scripts\js\kube.min.js" />
+    <Content Include="Scripts\js\livesearch.js" />
+    <Content Include="Scripts\js\message.js" />
+    <Content Include="Scripts\js\modal.js" />
+    <Content Include="Scripts\js\navigation-fixed.js" />
+    <Content Include="Scripts\js\navigation-toggle.js" />
+    <Content Include="Scripts\js\progress.js" />
+    <Content Include="Scripts\js\tabs.js" />
+    <Content Include="Scripts\js\textfit.js" />
+    <Content Include="Scripts\js\tooltip.js" />
+    <Content Include="Scripts\js\upload.js" />
+    <Content Include="Scripts\js\validate.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\retina-1.1.0.min.js" />
-    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\waypoints.min.js" />
-    <Content Include="Scripts\wow.js" />
-    <Content Include="Scripts\wow.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -254,6 +283,7 @@
     <Content Include="Views\tbPosts\Details.cshtml" />
     <Content Include="Views\tbPosts\Edit.cshtml" />
     <Content Include="Views\tbPosts\Index.cshtml" />
+    <Content Include="Views\Shared\TagCloud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

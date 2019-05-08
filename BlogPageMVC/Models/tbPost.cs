@@ -27,7 +27,6 @@ namespace BlogPageMVC.Models
 
         public string ShortContent { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string Content { get; set; }
 
         public int? Views { get; set; }
