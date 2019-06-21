@@ -1,0 +1,136 @@
+﻿@model BlogPageMVC.ViewModel.EditPostViewModel
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQi027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</div>
+<script src="https://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+<script type="text/javascript">
+    window['CKEDITOR_BASEPATH'] = '/ckeditor/';
+</script>
+
+<script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/ckeditor/config.js"></script>
+<script src="~/ckeditor/plugins/base64image/plugin.js"></script>
+<script src="~/ckeditor/plugins/base64image/lang/vi.js"></script>
+
+<style>
+</style>
+<div class="container-fluid" style="padding-top:20px;">
+    <form role="form" action="/Posts/Create" method="post">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div>
+                    <label for="titlePost">Tiêu Đề</label>
+                    @Html.TextBoxFor(m => m.Tittle, new { id = "titlePost", @class = "form-control", style = "max-width:100% !important    ; border-radius:20px; padding-left:15px;" })
+                    @*<input type="text" name="Title" value="@model.Titile" class="form-control" id="titlePost" style="width:100%!important; border-radius:5px;">
+                    *@
+                </div>
+                <hr />
+                <div>
+                    <label for="editor1">Nội Dung Bài Viết</label>
+                    @Html.TextAreaFor(m => m.Content, new { id = "aaaaa", @class = "form-control", hidden = true })
+                    <textarea name="editor1"></textarea>
+                </div>
+                <hr />
+                <div>
+                    <label for="url">Url:</label>
+                    @Html.TextBoxFor(m => m.Url, new { id = "url", @class = "form-control", style = "max-width:100%; border-radius:20px; padding-left:15px;" })
+                </div>
+                <div>
+                    <label for="short-content">Nội dung hiển thị:</label>
+                    @Html.TextAreaFor(m => m.ShortContent, new { id = "short-content", @class = "form-control", rows = 5, style = "max-width:100%; border-radius:5px;" })
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="category">Chọn danh mục cho bài viết:</label>
+                        @Html.DropDownListFor(m => m.SelectedCategoryId, Model.ListCategories, "-- Please select --", new { id = "category", @class = "form-control" })
+                        <button style="padding-left:5px; margin-top:40px;" type="submit" class="btn btn-success btn-lg btn-block" id="btnPost">
+                            Post
+                            <span class="glyphicon glyphicon-send"></span>
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <label for="tags">Chọn tag</label>
+                        @Html.ListBoxFor(x => x.SelectedListTagId, Model.ListTag, new { id = "category", multiple = "multiple", style = "min-height: 120px;", @class = "form-control" })
+                    </div>
+                </div>
+                @*<div>
+                        <label for="visiable">Trạng thái</label>
+
+                        @functions {
+                            bool getHtmlAttributes(bool? isChecked)
+                            {
+                                if (isChecked != null)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        @Html.CheckBox("visiable", @getHtmlAttributes(Model.Visiable.GetValueOrDefault()), new { @class = "big-checkbox form-control" })
+
+                    </div>*@
+            </div>
+
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-2" align="center">
+                @*<button style="padding-right:5px" type="button" hidden class="btn btn-info">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>*@
+
+           
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+<!-- /post -->
+@section button{
+    <div class="unit-50">
+        <button id="btnOlder" class="btn btn-black"><i class="fa fa-arrow-left"></i> PREVIOUS</button>
+    </div>
+}
+<script>
+
+    $(function () {
+
+        $("#btnPost").attr("disabled", true);
+        var editor = CKEDITOR.replace('editor1', {
+            customConfig: 'config',
+            stylesSet: 'contents.css'
+        });
+        //CKEDITOR.config.extraPlugins = "base64image";
+        var data = CKEDITOR.instances.editor1.getData();
+
+        $("#btnPost").click(function () {
+            console.log(CKEDITOR.instances.editor1.getData())
+            var a = $("#titlePost").val()
+            alert(a)
+        })
+
+        editor.on('change', function (evt) {
+            //alert('Total bytes: ' + evt.editor.getData().length);
+            if (CKEDITOR.instances.editor1.checkDirty()) {
+                // enable save change button
+                $("#btnPost").attr("disabled", false);
+                $("#aaaaa").val(CKEDITOR.instances.editor1.getData())
+
+            } else {
+                $("#btnPost").attr("disabled", true);
+
+                //disable save change button
+            }
+        });
+
+    })
+
+</script>

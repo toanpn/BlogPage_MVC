@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Blog ...";
+}
+@using Newtonsoft.Json;
+@using PagedList.Mvc
+@model  List<BlogPageMVC.Models.tbPost>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<!-- Introduction -->
+
+<div class="intro">
+    <div class="container">
+        <div class="units-row">
+            <div class="unit-10">
+                <img class="img-intro" src="~/Image/img/toan.png" />
+            </div>
+            <div class="unit-90">
+                <p class="p-intro">Hello, I’m Toan. Welcom to my blog.  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png">  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png">  <img src="https://img.icons8.com/color/24/000000/christmas-penguin.png"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+    input[type=text] {
+        width: 180px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+        /* When the input field gets focus, change its width to 100% */
+        input[type=text]:focus {
+            width: 100%;
+        }
+</style>
+@Html.Hidden("page", 0);
+<!-- Content -->
+@*@if ((string)TempData["SuccessMessage"] == "Sucacess")
+    {
+
+    }*@
+
+<div class="content" style="padding-top:0px">
+    <div class="container-fluid" style="padding-right:30px">
+        <div class="row">
+            <div class="col-9">
+
+                <div class="row">
+                    <div class="col-3" style="background: #F7F4F4; border-radius:20px" "></div>
+                    <div class="col-9" style="padding-top:50px">
+                        <div class="row">
+                            @if(ViewBag.isCrawByTag == true)
+                            {
+                                <div class="row" style="margin-bottom:35px; margin-left:25px">
+                                    <strong style="color:#ffa542">Các bài viết với:</strong>
+                                    <a href="#" style="margin-left:25px; padding-left:25px; padding-right:25px;" class="tag">#@ViewBag.tagName</a>
+                                </div>
+                                <br />
+                            }
+
+                        </div>
+                        @foreach(var post in Model)
+                        {
+                            <div class="post" style="margin-bottom:20px">
+                                <!-- Heading -->
+                                <a href="@Url.Action("Index", "Posts", new { id = post.id })"><h1>@post.Tittle</h1></a>
+                                <hr>
+                                <div class="in-content">
+                                    <p href="@Url.Action("Index", "Posts", new { id = post.id })">
+                                        @post.ShortContent
+                                    </p>
+                                </div>
+                                <div class="foot-post" style="top:0px">
+                                    <div class="units-row" style="margin-bottom:0px">
+                                        <div class="unit-100">
+                                            <strong>Tags:</strong>
+                                            @foreach(var tag in post.tbPost_Tag)
+                                            {
+                                                <a style="padding-right:5px" href="@Url.Action("Tag","Home", new { _id = tag.Tag_id})">@tag.tbTag.Name</a>
+                                            }
+
+                                        </div>
+                                        <div class="unit-100">
+                                            <strong>COMMENTS:</strong>
+                                            <a href="#">@post.Comments</a>
+                                        </div>
+                                        <div class="unit-100">
+                                            <p style="font-size:11px;color:#b2b1b1;">khoảng 8 phút đọc.</p>
+                                        </div>
+                                    </div>
+                                    <a class="read-more" href='@Url.Action("Index", "Posts", new { id = post.id })'>Read more</a>
+                                </div>
+                            </div>
+                            <hr />
+                            <br />
+                        }
+
+                        <!--
+                            <div class="post">
+                            <a href="#"><h1>The moon will pass above or below Saturn in the sky</h1></a>
+                            <hr>
+                            <div class="in-content">
+                                <img class="right" src="~/Image/img/post-img.jpg" alt="">
+                                <p>
+                                    Saturn has a prominent ring system that consists of nine continuous main rings and three discontinuous arcs, composed mostly afn of ice particles with a smaller amount of rocky debris and dust.
+                                </p>
+                            </div>
+                            <div class="foot-post">
+                                <div class="units-row">
+                                    <div class="unit-100">
+                                        <strong>Tags:</strong>
+                                        <a href="#">Saturn</a>,
+                                        <a href="#">Sky</a>,
+                                        <a href="#">Moon</a>,
+                                    </div>
+                                    <div class="unit-100">
+                                        <strong>COMMENTS:</strong>
+                                        <a href="#">3</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" style="background: #F7F4F4; border-radius:20px">
+                <div class="row" style="padding-bottom:30px">
+                    <input style="border-radius:5px; left:15px; top:15px;" type="text" name="search" placeholder="Tìm kiếm trong blog ...">
+                </div>
+                <div class="row">
+                    @Html.Partial("TagCloud")
+                </div>
+                <div class="row">
+                    @Html.Partial("CategoryList", (List<BlogPageMVC.Models.tbCategory>)@ViewBag.ListCategory)
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- /post -->
+@section button{
+    <div class="unit-50">
+        <button id="btnOlder" class="btn btn-black"><i class="fa fa-arrow-right"></i> OLDER</button>
+    </div>
+}
+<script>
+
+        $(function () {
+            $("#liHome").addClass("active");
+
+            var isCreateSuccess = '@TempData["SuccessMessage"]';
+            if (isCreateSuccess != '' && isCreateSuccess != null) {
+                alertify.notify('Tạo bài viết mới thành công!!!', 'success', 5, function () { console.log('success'); });
+            }
+            var model = JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore})
+
+
+        console.log(model)
+        // init value for page
+        $('#page').val(1);
+
+        var page = $('#page');
+        // increase for page's value whenever Older button clicked
+        function increasePageValue() {
+            page.val(parseInt(page.val()) + 1);
+        }
+
+        // event click of Older button
+        $("#btnOlder").click(function () {
+
+            increasePageValue();
+
+            $.ajax({
+                // edit to add steve's suggestion.
+                //url: "/ControllerName/ActionName",
+                url: '/Home/Index',
+                data: {page: page.val()},
+                success: function (data) {
+                    // your data could be a View or Json or what ever you returned in your action method
+                    // parse your data here
+                }
+            });
+            //console.log(page.val());
+        })
+    })
+
+</script>

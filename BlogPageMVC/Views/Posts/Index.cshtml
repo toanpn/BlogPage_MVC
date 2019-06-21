@@ -1,0 +1,71 @@
+﻿@model BlogPageMVC.ViewModel.PostViewModel
+@{
+    ViewBag.Title = Model.Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div class="container">
+    <div class="row justify-content-center" id="post-content">
+        <div class="col-8" id="post-container">
+            <div class="row" style="font-size:14px; color:#a0a0a0">
+                ngày viết: @Model.DatePublish.ToString("dd/MM/yyyy")
+            </div>
+            <div class="row" id="post-title">
+                <h1>@Model.Tittle</h1>
+            </div>
+            <br />
+            <br />
+            @Html.Raw(Model.Content)
+
+            <br />
+        </div>
+        <div class="col-8" style="padding-top:10px">
+            <div class="row">
+                @foreach (var tag in Model.ListTag)
+                {
+                    <a href='@Url.Action("Tag", "Home", new { _id = tag.id })' class="tag">#@tag.Name</a>
+                }
+            </div>
+            @if (Model.Category != null)
+            {
+                <div class="row">
+                    <strong style="padding-right:10px;color: rgb(255, 165, 66);">Nằm trong thư mục: </strong>
+                    <a href='@Url.Action("Category", "Home", new { _id = Model.Category.id })'>#@Model.Category.Name</a>
+                </div>
+            }
+        </div>
+        <div class="col-8">
+
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<hr />
+<div class="container-fluid">
+    <div class="row justify-content-center" id="postExtra">
+        <div class="col-6" style="background-color:#f1f1f1">
+            <div class="fb-comments" data-href="http://localhost:51142/Posts/Index/@Model.id" data-width="100%" data-numposts="15"></div>
+        </div>
+    </div>
+</div>
+
+@*@if (Request.UrlReferrer != null)
+{
+    <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+}*@
+
+<!-- /post -->
+@section button{
+    <div class="unit-50">
+        <button onclick="history.go(-1); return false;" id="btnOlder" class="btn btn-black"><i class="fa fa-arrow-left"></i> PREVIOUS</button>
+    </div>
+}
+
+<script>
+
+    $(function () {
+    })
+</script>
