@@ -13,12 +13,27 @@ namespace BlogPageMVC.Controllers
     {
         private dbBlogEntities db = new dbBlogEntities();
         
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string search)
        {
             //int pageNumber = (page ?? 1);
-
+            if(search != null)
+            {
+                var results = db.tbPosts.Where(x => x.Tittle.Contains(search)).ToList();
+                ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
+                return View(results);
+            }
             ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
             return View(db.tbPosts.ToList());
+        }
+
+        public ActionResult Search(string search)
+        {
+
+            var results = db.tbPosts.Where(x => x.Tittle.Contains(search)).ToList();
+
+            ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
+
+            return RedirectToAction("Index", new { page = 1, search = search });
         }
 
         public ActionResult Tag(int _id)

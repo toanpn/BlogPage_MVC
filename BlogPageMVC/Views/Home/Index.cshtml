@@ -124,8 +124,11 @@
                 </div>
             </div>
             <div class="col-3" style="background: #F7F4F4; border-radius:20px">
-                <div class="row" style="padding-bottom:30px">
-                    <input style="border-radius:5px; left:15px; top:15px;" type="text" name="search" placeholder="Tìm kiếm trong blog ...">
+                <div class="row input-group" style="padding-bottom:30px; border-radius:5px; left:15px; top:15px;">
+                    <input type="text" class="form-control" id="searchInput" name="search" style="border-radius:5px;" placeholder="Tìm kiếm trong blog ...">
+                    <div class="input-group-append">
+                        <button id="searchButton" class="btn btn-outline-warning btn-small" type="button"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
                 <div class="row">
                     @Html.Partial("TagCloud")
@@ -152,14 +155,31 @@
         $(function () {
             $("#liHome").addClass("active");
 
-            var isCreateSuccess = '@TempData["SuccessMessage"]';
-            if (isCreateSuccess != '' && isCreateSuccess != null) {
-                alertify.notify('Tạo bài viết mới thành công!!!', 'success', 5, function () { console.log('success'); });
-            }
-            var model = JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore})
+           $("#searchButton").click(function () {
+                var text = $("#searchInput").val()
+                if (text !== "") {
+                    location.href = '@Url.Action("Search", "Home", new { search = "học" })'
 
+                    ////$.get('/Home/Search?search=' + text, {});
+                    // $.ajax({
+                    //    type: 'GET',
+                    //    url: "/Home/Search?search=" + text,
+                    //    //data: { data: 'value' },
+                    //    dataType: 'data',
+                    //    success: function (result) {
+                    //        //console.log(series.data)
+                    //    },
+                    //    error: function () {
+                    //        console.log("Error GetTagsJson")
+                    //    }
+                    //});
+                } else {
+                    alertify.error('Không thể tìm kiếm giá trị rỗng')
+                }
+            })
+            //var model = JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
-        console.log(model)
+        //console.log(model)
         // init value for page
         $('#page').val(1);
 

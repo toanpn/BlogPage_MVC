@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using BlogPageMVC.Models;
 using BlogPageMVC.Security;
 using Newtonsoft.Json;
+using PagedList;
+
 
 namespace BlogPageMVC.Controllers
 {
@@ -19,9 +21,13 @@ namespace BlogPageMVC.Controllers
 
         // GET: Tags
         [CustomAuthorize(Roles = "admin")]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.tbTags.ToList());
+            int pageSize = 7;
+            int pageNumber = (page ?? 1);
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageCount = db.tbTags.Count() / pageSize + 1;
+            return View(db.tbTags.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize).ToList());
         }
 
         [AllowAnonymous]
@@ -34,12 +40,12 @@ namespace BlogPageMVC.Controllers
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbTag tbTag = db.tbTags.Find(id);
-            if (tbTag == null)
+            if(tbTag == null)
             {
                 return HttpNotFound();
             }
@@ -59,28 +65,33 @@ namespace BlogPageMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "admin")]
-        public ActionResult Create([Bind(Include = "id,Name,Views")] tbTag tbTag)
+        public ActionResult Create(string name)
         {
-            if (ModelState.IsValid)
+            tbTag t = new tbTag()
             {
-                db.tbTags.Add(tbTag);
+                Name = name,
+                Views = 0
+            };
+            if(ModelState.IsValid)
+            {
+                db.tbTags.Add(t);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tbTag);
+            return RedirectToAction("Index");
         }
 
         // GET: Tags/Edit/5
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbTag tbTag = db.tbTags.Find(id);
-            if (tbTag == null)
+            if(tbTag == null)
             {
                 return HttpNotFound();
             }
@@ -88,31 +99,30 @@ namespace BlogPageMVC.Controllers
         }
 
         // POST: Tags/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,Views")] tbTag tbTag)
+        public ActionResult Edit(int id, string name)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                db.Entry(tbTag).State = EntityState.Modified;
+                db.tbTags.Find(id).Name = name;
+                //db.Entry(tbTag).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tbTag);
+            return RedirectToAction("Index");
         }
 
         // GET: Tags/Delete/5
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbTag tbTag = db.tbTags.Find(id);
-            if (tbTag == null)
+            if(tbTag == null)
             {
                 return HttpNotFound();
             }
@@ -125,6 +135,7 @@ namespace BlogPageMVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             tbTag tbTag = db.tbTags.Find(id);
+            db.tbPost_Tag.RemoveRange(db.tbPost_Tag.Where(x => x.Tag_id == id));
             db.tbTags.Remove(tbTag);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -132,7 +143,7 @@ namespace BlogPageMVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if(disposing)
             {
                 db.Dispose();
             }

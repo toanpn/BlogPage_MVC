@@ -109,12 +109,21 @@ namespace BlogPageMVC.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            try
+            {
+
             tbCategory tbCategory = db.tbCategories.Find(id);
+            db.tbPost_Category.RemoveRange(db.tbPost_Category.Where(x => x.Category_id == id));
             db.tbCategories.Remove(tbCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
+
+            } catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         protected override void Dispose(bool disposing)

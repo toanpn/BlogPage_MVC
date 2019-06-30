@@ -741,6 +741,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="ckeditor\plugins\base64image\LICENSE.md" />
     <Content Include="ckeditor\plugins\base64image\README.md" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -27,7 +27,7 @@
 
     // assign host name
     severName = "@Html.ViewContext.HttpContext.Request.Url".replace("@Context.Request.RawUrl", '')
-    console.log(severName)
+    //console.log(severName)
     am4core.useTheme(am4themes_animated);
 
     am4core.useTheme(am4themes_animated);
@@ -94,7 +94,7 @@
             dataType: 'json',
             success: function (result) {
                 series.data = result;
-                console.log(series.data)
+                //console.log(series.data)
 
             },
             error: function () {
