@@ -13,6 +13,25 @@
         header.group.top-nav {
             width: 800px;
         }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            min-height: 100%;
+            position: relative;
+        }
+
+        #header {
+        }
+
+        #body {
+        }
+
+        #footer {
+        }
     </style>
     <link href="~/Content/Tag.css" rel="stylesheet" />
     <script src="~/Scripts/alertify.min.js"></script>
@@ -32,70 +51,86 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
 </head>
 
-<body style="background-color: #f9f9f9;">
+@*<body style="background-color: #f9f9f9;">*@
+<body style="background-color: #f2f2f2;">
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3"></script>
-    <div class="main-nav" style="padding-left:150px;padding-right:150px">
-        <div class="container-fluid">
-            <header class="group top-nav" style="width:auto">
-                <nav class="navbar logo-w navbar-left">
-                    <a class="logo" href="@Url.Action("Index","Home")">Blog ...</a>
-                </nav>
-                <div class="navigation-toggle" data-tools="navigation-toggle" data-target="#navbar-1">
-                    <span class="logo">Saturn</span>
+
+    <div id="container">
+        <div id="header">
+            <div class="main-nav" style="padding-left:150px;padding-right:150px">
+                <div class="container-fluid">
+                    <header class="group top-nav" style="width:auto">
+                        <nav class="navbar logo-w navbar-left">
+                            <a class="logo" href="@Url.Action("Index","Home")">Blog ...</a>
+                        </nav>
+                        <div class="navigation-toggle" data-tools="navigation-toggle" data-target="#navbar-1">
+                            <span class="logo">Saturn</span>
+                        </div>
+
+                        <nav id="navbar-1" class="navbar item-nav navbar-right">
+                            <ul>
+                                <li id="liHome"><a href="@Url.Action("Index","Home")">Home</a></li>
+                                @if(@SessionPersister.UserName == "admin" || @SessionPersister.UserName == "toanpn")
+                                {
+                                    <li id="liCreate"><a href="@Url.Action("Create","Posts")">Create</a></li>
+                                    <li id="liManager"><a href="@Url.Action("ManagerPost","Home")">Posts</a></li>
+                                    <li id="liCategory"><a href="@Url.Action("Index","Categories")">Category</a></li>
+                                    <li id="liTag"><a href="@Url.Action("Index","Tags")">Tag</a></li>
+                                }
+
+                                <li id="liAbout"><a href="@Url.Action("Index","About")"> Ablout</a></li>
+                                <li id="liContact"><a href="@Url.Action("Index","Contact")">Contact</a></li>
+
+                                @if(@SessionPersister.UserName != "admin" && @SessionPersister.UserName != "toanpn")
+                                {
+                                    <li id="liLogin"><a href="@Url.Action("Index", "Account")">Login</a></li>
+                                }
+                                @if(@SessionPersister.UserName == "admin" || @SessionPersister.UserName == "toanpn")
+                                {
+                                    <li><a href="@Url.Action("Logout", "Account")">Logout</a></li>
+                                }
+                            </ul>
+
+                        </nav>
+
+                    </header>
                 </div>
-               
-                <nav id="navbar-1" class="navbar item-nav navbar-right">
-                    <ul>
-                        <li id="liHome"><a href="@Url.Action("Index","Home")">Home</a></li>
-                        @if (@SessionPersister.UserName == "admin" || @SessionPersister.UserName == "toanpn")
-                        {
-                            <li id="liCreate"><a href="@Url.Action("Create","Posts")">Create</a></li>
-                            <li id="liCategory"><a href="@Url.Action("Index","Categories")">Category</a></li>
-                            <li id="liTag"><a href="@Url.Action("Index","Tags")">Tag</a></li>
-                        }
-
-                        <li id="liAbout"><a href="@Url.Action("Index","About")"> Ablout</a></li>
-                        <li id="liContact"><a href="@Url.Action("Index","Contact")">Contact</a></li>
-
-                        @if (@SessionPersister.UserName != "admin" && @SessionPersister.UserName != "toanpn")
-                        {
-                            <li id="liLogin"><a href="@Url.Action("Index", "Account")">Login</a></li>
-                        }
-                        @if (@SessionPersister.UserName == "admin" || @SessionPersister.UserName == "toanpn")
-                        {
-                            <li ><a href="@Url.Action("Logout", "Account")">Logout</a></li>
-                        }
-                    </ul>
-
-                </nav>
-
-            </header>
+            </div>
+        </div>
+        <div id="body" style="min-height: 500px ">
+            @RenderBody()
+        </div>
+        <div id="footer">
+            <footer style="background: #fff">
+                <div class="container">
+                    <div class="row" style="padding-top:15px">
+                        <div class="col-6 text-center">
+                            @RenderSection("button", required: false)
+                        </div>
+                        <div class="col-6 text-center">
+                            <ul class="social list-flat">
+                                <li><a href="#"><i class="fa fa-send"></i></a></li>
+                                <li><a href="https://www.facebook.com/toanpnull"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="https://github.com/hsgsneiger"><i class="fab fa-github"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/jeremy-pham/"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                            
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <p class="foot-cp">
+                                <a href="#">trở về đầu trang</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
 
-    @RenderBody()
-
-
-    <footer style="background: #F7F4F4">
-        <div class="container">
-            <div class="units-row">
-                @RenderSection("button", required: false)
-                <div class="unit-50">
-                    <ul class="social list-flat right">
-                        <li><a href="#"<i class="fa fa-send"></i></a></li>
-                        <li><a href="https://www.facebook.com/toanpnull"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="https://github.com/hsgsneiger"><i class="fab fa-github"></i></a></li>
-                        <li><a href="https://www.linkedin.com/in/jeremy-pham/"><i class="fab fa-linkedin-in"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <p class="text-centered foot-cp">
-                <a href="#">trở về đầu trang</a>
-            </p>
-        </div>
-    </footer>
     <script src="~/Scripts/js/jquery.min.js"></script>
     @*<script src="~/Scripts/js/kube.min.js"></script>*@
     <script src="~/Scripts/js/kube.js"></script>

@@ -12,9 +12,9 @@ namespace BlogPageMVC.Controllers
     public class HomeController : Controller
     {
         private dbBlogEntities db = new dbBlogEntities();
-        
+
         public ActionResult Index(int? page, string search)
-       {
+        {
             //int pageNumber = (page ?? 1);
             if(search != null)
             {
@@ -22,8 +22,31 @@ namespace BlogPageMVC.Controllers
                 ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
                 return View(results);
             }
+            int pageSize = 7;
+            int pageNumber = (page ?? 1);
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageCount = db.tbPosts.Count() / pageSize + 1;
             ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
-            return View(db.tbPosts.ToList());
+            return View(db.tbPosts.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize).ToList());
+            //return View(db.tbPosts.ToList());
+        }
+
+        public ActionResult ManagerPost(int? page)
+        {
+            //int pageNumber = (page ?? 1);
+            //if(search != null)
+            //{
+            //    var results = db.tbPosts.Where(x => x.Tittle.Contains(search)).ToList();
+            //    ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
+            //    return View(results);
+            //}
+            int pageSize = 7;
+            int pageNumber = (page ?? 1);
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageCount = db.tbPosts.Count() / pageSize + 1;
+            ViewBag.ListCategory = db.tbCategories.OrderByDescending(x => x.Views).Take(10).ToList();
+            return View(db.tbPosts.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize).ToList());
+            //return View(db.tbPosts.ToList());
         }
 
         public ActionResult Search(string search)
@@ -42,7 +65,7 @@ namespace BlogPageMVC.Controllers
             //var results = db.tbPosts.SelectMany(n => n.tbPost_Tag)
             //                  .Where(c => c.Post_id == _id).ToList();
 
-            //// get all post by tag id
+
             var results = db.tbPosts.Where(p => p.tbPost_Tag.Any(c => c.Tag_id == _id)).ToList();
             ViewBag.isCrawByTag = true;
             ViewBag.tagName = db.tbTags.FirstOrDefault(x => x.id == _id).Name;

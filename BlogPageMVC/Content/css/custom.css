@@ -181,7 +181,7 @@ img.img-intro {
 }
 
 .content .post h1:before {
-    content: url(../../Image/img/separator.png);
+    /*content: url(../../Image/img/separator.png);*/
     position: absolute;
     top: -35px;
     left: 1px;

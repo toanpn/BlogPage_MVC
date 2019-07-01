@@ -26,6 +26,7 @@ namespace BlogPageMVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbPost tbPost = await db.tbPosts.FindAsync(id);
+            inCreaseView(tbPost);
             if (tbPost == null)
             {
                 return HttpNotFound();
@@ -35,6 +36,21 @@ namespace BlogPageMVC.Controllers
             return View(viewModel);
         }
 
+        private void inCreaseView(tbPost post)
+        {
+            post.Views++;
+            foreach(var i in db.tbCategories.Where(p => p.tbPost_Category.Any(c => c.Post_id == post.id)))
+            {
+                if(i.Views == null) i.Views = 0;
+                i.Views++;
+            }
+            foreach(var i in db.tbTags.Where(p => p.tbPost_Tag.Any(c => c.Post_id == post.id)))
+            {
+                if(i.Views == null) i.Views = 0;
+                i.Views++;
+            }
+            db.SaveChanges();
+        }
         private IEnumerable<SelectListItem> GetListTags()
         {
             var res = db
@@ -177,16 +193,18 @@ namespace BlogPageMVC.Controllers
 
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [CustomAuthorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        [CustomAuthorize(Roles = "admin")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            tbPost tbPost = await db.tbPosts.FindAsync(id);
+            tbPost tbPost = db.tbPosts.Find(id);
+            db.tbPost_Category.RemoveRange(db.tbPost_Category.Where(x => x.Post_id == id));
+            db.tbPost_Tag.RemoveRange(db.tbPost_Tag.Where(x => x.Post_id == id));
             db.tbPosts.Remove(tbPost);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            db.SaveChanges();
+            return RedirectToAction("ManagerPost", "Home");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

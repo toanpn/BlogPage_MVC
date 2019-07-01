@@ -170,7 +170,12 @@
 </div>
 
 
-
+@section button{
+    <div class="">
+        @*<button id="btnOlder" class="btn" style="background-color: #E85F37;"><i class="fa fa-arrow-right"></i> OLDER</button>*@
+        <button onclick="history.go(-1); return false;" id="btnOlder" class="btn" style="background-color: #E85F37;"><i class="fa fa-arrow-left"></i> PREVIOUS</button>
+    </div>
+    }
 @Html.AntiForgeryToken()
 
 

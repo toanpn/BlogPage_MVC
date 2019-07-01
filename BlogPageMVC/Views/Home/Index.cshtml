@@ -45,7 +45,7 @@
             <div class="col-9">
 
                 <div class="row">
-                    <div class="col-3" style="background: #F7F4F4; border-radius:20px" "></div>
+                    <div class="col-3" style=" border-radius:20px" "></div>
                     <div class="col-9" style="padding-top:50px">
                         <div class="row">
                             @if(ViewBag.isCrawByTag == true)
@@ -60,7 +60,7 @@
                         </div>
                         @foreach(var post in Model)
                         {
-                            <div class="post" style="margin-bottom:20px">
+                            <div class="post" style="margin-bottom:20px; background-color:#fff; padding:15px 20px 15px 20px; box-shadow:0 0.5px 1px rgba(0,0,0,0.25); border-radius:3px;">
                                 <!-- Heading -->
                                 <a href="@Url.Action("Index", "Posts", new { id = post.id })"><h1>@post.Tittle</h1></a>
                                 <hr>
@@ -90,8 +90,6 @@
                                     <a class="read-more" href='@Url.Action("Index", "Posts", new { id = post.id })'>Read more</a>
                                 </div>
                             </div>
-                            <hr />
-                            <br />
                         }
 
                         <!--
@@ -146,9 +144,7 @@
 
 <!-- /post -->
 @section button{
-    <div class="unit-50">
-        <button id="btnOlder" class="btn btn-black"><i class="fa fa-arrow-right"></i> OLDER</button>
-    </div>
+        <button id="btnOlder" class="btn" style="background-color: #E85F37;" onclick="location.href='@Url.Action("Index", new { page = ViewBag.pageNumber +1 })'"><i class="fa fa-arrow-right"></i> OLDER</button>
 }
 <script>
 
