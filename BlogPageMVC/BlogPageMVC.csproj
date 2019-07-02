@@ -718,6 +718,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Image\img\avatar.jpg" />
     <Content Include="Image\img\favicon.png" />
     <Content Include="Image\img\head-bg.jpg" />
     <Content Include="Image\img\post-img.jpg" />
@@ -818,6 +819,8 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Home\ManagerPost.cshtml" />
+    <Content Include="Views\Home\TestRenderBody.cshtml" />
+    <Content Include="Views\Shared\Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -90,5 +90,10 @@ namespace BlogPageMVC.Controllers
 
             return View("Index", results);
         }
+
+        public ActionResult TestRenderBody()
+        {
+            return View();
+        }
     }
 }
